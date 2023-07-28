@@ -1,0 +1,7 @@
+FROM python:alpine
+
+WORKDIR /app
+
+RUN pip install -Ur dev_requirements.txt
+
+RUN pip install -Ur requirements.txt

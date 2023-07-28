@@ -1,0 +1,48 @@
+version: "3"
+services:
+  test:
+    image: python:alpine
+    working_dir: /app
+    command: ["python3", "-m", "unittest", "discover", "-t", "."]
+    volumes:
+      - ../src:/app/src
+      - ../tests:/app/tests
+
+  lint:
+    build:
+      context: .
+      dockerfile: Dockerfile.lint
+    working_dir: /app
+    command:
+      [
+        "python3",
+        "-m",
+        "pylint",
+        "--recursive=y",
+        "-j",
+        "2",
+        "./src",
+        "./tests",
+      ]
+    volumes:
+      - ../src:/app/src
+      - ../tests:/app/tests
+
+  format:
+    build:
+      context: .
+      dockerfile: Dockerfile.format
+    working_dir: /app
+    command:
+      [
+        "python3",
+        "-m",
+        "autopep8",
+        "--in-place",
+        "--recursive",
+        "./src",
+        "./tests",
+      ]
+    volumes:
+      - ../src:/app/src
+      - ../tests:/app/tests

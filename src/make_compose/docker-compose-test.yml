@@ -1,0 +1,56 @@
+services:
+  approvals-format:
+    build:
+      context: .
+      dockerfile: Dockerfile.format
+    command: '["python3","-m","autopep8","--in-place","--recursive","./src","./tests",]'
+    volumes:
+      - "../src/approval: /app/src"
+      - "../tests/approval: /app/tests"
+    workingdir: ./app
+  approvals-lint:
+    build:
+      context: .
+      dockerfile: Dockerfile.lint
+    command: '["python3", "-m", "pylint", "--recursive=y", "-j","2","./src","./tests"]'
+    volumes:
+      - "../src/approval: /app/src"
+      - "../tests/approval: /app/tests"
+    workingdir: ./app
+  approvals-test:
+    build:
+      context: .
+      dockerfile: Dockerfile.test
+    command: ""
+    volumes:
+      - "../src/approval: /app/src"
+      - "../tests/approval: /app/tests"
+    workingdir: ./app
+  logzio-format:
+    build:
+      context: .
+      dockerfile: Dockerfile.format
+    command: '["python3","-m","autopep8","--in-place","--recursive","./src","./tests",]'
+    volumes:
+      - "../src/logzio: /app/src"
+      - "../tests/logzio: /app/tests"
+    workingdir: ./app
+  logzio-lint:
+    build:
+      context: .
+      dockerfile: Dockerfile.lint
+    command: '["python3", "-m", "pylint", "--recursive=y", "-j","2","./src","./tests"]'
+    volumes:
+      - "../src/logzio: /app/src"
+      - "../tests/logzio: /app/tests"
+    workingdir: ./app
+  logzio-test:
+    build:
+      context: .
+      dockerfile: Dockerfile.test
+    command: ""
+    volumes:
+      - "../src/logzio: /app/src"
+      - "../tests/logzio: /app/tests"
+    workingdir: ./app
+versions: 3
