@@ -5,3 +5,5 @@ WORKDIR /app
 RUN pip install -Ur dev_requirements.txt
 
 RUN pip install -Ur requirements.txt
+
+CMD ["pip", "install", "-Ur", "requirements.txt", "requirements_dev.txt", "&& ", "python", "-m", "unittest", "discover", "-t", "."]
